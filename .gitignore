@@ -1,3 +1,9 @@
+# Project-specific
+# Unencrypted payload
+payload.md
+# Payload key
+payload.key
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

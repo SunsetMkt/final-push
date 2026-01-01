@@ -22,8 +22,6 @@ It relies solely on public GitHub activity as a heartbeat signal and executes wi
     -   A predefined payload is decrypted
     -   The payload is published to the repository
 
-No assumptions are made about the user's state. Only inactivity is evaluated.
-
 ## Configuration
 
 GitHub Action secrets keys are limited to 48KB.
@@ -34,3 +32,9 @@ Any of the following will prevent or reset the trigger:
 
 -   New GitHub activity (for example, star or unstar any repository)
 -   Manual state reset
+
+## Security design
+
+No assumptions are made about the user's state. Only inactivity is evaluated.
+
+Fernet is used for convenience, not for long-term archival security.
