@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import copy
 import json
 import logging
 
@@ -40,11 +41,11 @@ def save_json(filename, data):
 
 def validate_state(state):
     required_fields = {
-        # "last_activity": str,
+        "last_activity": (str, type(None)),
         "inactivity_days": int,
         "triggered": bool,
-        # "triggered_at": str,
-        # "last_check": str
+        "triggered_at": (str, type(None)),
+        "last_check": (str, type(None)),
     }
 
     for key, expected_type in required_fields.items():
@@ -73,7 +74,7 @@ def get_state():
         # invalid state is acceptable
         logging.warning(e)
         logging.warning(f"Using default state: {STATE_TEMPLATE}")
-        return STATE_TEMPLATE
+        return copy.deepcopy(STATE_TEMPLATE)
 
 
 def save_state(state):

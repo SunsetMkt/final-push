@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import logging
+import sys
 from datetime import datetime, timezone
 
 import app_crypto
@@ -47,10 +48,11 @@ if __name__ == "__main__":
     logging.info("Determining if inactive")
 
     if days_since_last_activity > config["inactivity_days"]:
+        logging.warning("Inactive, triggering")
         # Should trigger
         if config["one_shot"] and state["triggered"]:
             logging.info("Already triggered, skipping")
-            exit(0)
+            sys.exit(0)
 
         payload = app_data.get_bytes(config["payload_path"])
         key = app_crypto.get_key()
@@ -59,5 +61,7 @@ if __name__ == "__main__":
         state["triggered"] = True
         state["triggered_at"] = get_current_time().isoformat()
         app_data.save_state(state)
+    else:
+        logging.info("Not inactive, safe to exit")
 
     logging.info("Done")

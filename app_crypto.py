@@ -40,9 +40,7 @@ def decrypt(payload, key):
     :param payload: bytes
     :param key: bytes
     """
-    logging.info(
-        f"Decrypting payload {get_sha256_bytes(payload)} with key {get_sha256_bytes(key)}"
-    )
+    logging.info(f"Decrypting payload {get_sha256_bytes(payload)} with key")
     f = Fernet(key)
     token = f.decrypt(payload)
     return token
@@ -55,9 +53,7 @@ def encrypt(payload, key):
     :param payload: bytes
     :param key: bytes
     """
-    logging.info(
-        f"Encrypting payload {get_sha256_bytes(payload)} with key {get_sha256_bytes(key)}"
-    )
+    logging.info(f"Encrypting payload {get_sha256_bytes(payload)} with key")
     f = Fernet(key)
     token = f.encrypt(payload)
     return token

@@ -47,7 +47,11 @@ def get_recent_activities(username, session=None, handle_404=True):
 
     retries = 0
     while True:
-        resp = sess.get(url, headers={"Accept": "application/vnd.github+json"})
+        resp = sess.get(
+            url,
+            headers={"Accept": "application/vnd.github+json"},
+            timeout=30,
+        )
 
         if handle_404:
             # User not found == factual empty activity
@@ -102,7 +106,6 @@ def fetch_last_activity(username, handle_404=True):
     Returns last activity time (UTC datetime) or None.
 
     None == more than 90 days
-    Return "YYYY-MM-DD HH:mm:ss+00:00"
     """
     activities = get_recent_activities(username, handle_404=handle_404)
     return get_last_activity_time(activities)
